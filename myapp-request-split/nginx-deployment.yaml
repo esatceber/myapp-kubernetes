@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ambassador-nginx
+  namespace: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ambassador-nginx
+  template:
+    metadata:
+      labels:
+        app: ambassador-nginx
+    spec:
+      containers:
+        - name: ambassador-nginx
+          image: esatcbr/ambassadors-nginx:v2
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambassador-nginx
+  namespace: myapp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: ambassador-nginx
+
