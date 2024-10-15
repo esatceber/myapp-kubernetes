@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambassador-service  # Service adı
+spec:
+  type: NodePort  # Dışarıdan erişim için NodePort tipi
+  selector:
+    name: ambassador-pod  # Pod ile eşleşecek etiket
+  ports:
+    - port: 80           # Pod'un portu
+      targetPort: 80     # Pod içindeki hedef port
+      nodePort: 30000    # Dışarıdan erişim için port (isteğe bağlı)
+
