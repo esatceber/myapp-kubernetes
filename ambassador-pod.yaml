@@ -3,23 +3,15 @@ kind: Pod
 metadata:
   name: ambassador-pod
   labels:
-    name: ambassador-pod  # Pod'un etiketi
+    app: ambassador-pod
 spec:
   containers:
   - name: myapp
-    image: esatcbr/myapp-backend:v1-slim  # Flask uygulamanızın imajı
+    image: esatcbr/myapp-backend:v1-slim
     ports:
-    - containerPort: 5000  # Flask uygulaması 5000 portunda çalışıyor
+    - containerPort: 5000
   - name: nginx-ambassador
-    image: esatcbr/ambassadors-nginx:v1  # Nginx imajı
+    image: esatcbr/ambassadors-nginx:v1
     ports:
-    - containerPort: 80  # Nginx 80 portunda çalışacak
-    volumeMounts:
-    - name: nginx-config
-      mountPath: /etc/nginx/nginx.conf  # Nginx yapılandırma dosyasının mount edileceği yer
-      subPath: nginx.conf
-  volumes:
-  - name: nginx-config
-    configMap:
-      name: nginx-config  # ConfigMap adı
+    - containerPort: 80
 
