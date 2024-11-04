@@ -1,13 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ambassador-service  # Service adı
+  name: ambassador-service
 spec:
-  type: NodePort  # Dışarıdan erişim için NodePort tipi
+  type: LoadBalancer  # Dışarıdan erişim için LoadBalancer tipi
   selector:
-    name: ambassador-pod  # Pod ile eşleşecek etiket
+    app: ambassador-pod  # Pod'un etiketi
   ports:
-    - port: 80           # Pod'un portu
-      targetPort: 80     # Pod içindeki hedef port
-      nodePort: 30000    # Dışarıdan erişim için port (isteğe bağlı)
-
+    - port: 80           # Dışarıya açılacak port
+      targetPort: 80     # nginx-ambassador container'ındaki port
